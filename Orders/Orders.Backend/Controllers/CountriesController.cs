@@ -28,8 +28,8 @@ namespace Orders.Backend.Controllers
         //Tambien tengo que hacer mi Metodo principal asincronico 
         public async Task<IActionResult> GetAsync()
         {
-            //Metodo asincronico para mostrar los paises
-            return Ok(await _context.Countries.ToListAsync());
+            //Metodo asincronico para mostrar los paises AsNoTracking() para no loger todas las operaciones
+            return Ok(await _context.Countries.AsNoTracking().ToListAsync());
         }
 
         //Metodo que busca un pais en especifico con su respectivo parametro por ruta
@@ -94,6 +94,7 @@ namespace Orders.Backend.Controllers
             _context.Remove(country);
             //Metodo asincronico para guardar los paises y tambien hace el commit
             await _context.SaveChangesAsync();
+            
             //Metodo para no devolver el pais
             return NoContent();
         }

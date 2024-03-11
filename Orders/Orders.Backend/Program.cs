@@ -1,5 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Orders.Backend.Data;
+using Orders.Backend.Repositories.Implementations;
+using Orders.Backend.Repositories.Interfaces;
+using Orders.Backend.UnitsOfWork.Implementations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,8 +11,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//Inyertar la coneccion de la base de datos
+//Inyectamos la coneccion de la base de datos
 builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer("name=LocalConnection"));
+//Inyectamos la unidad de trabajo generico
+builder.Services.AddScoped(typeof(IGenericUnitOfWork<>), typeof(GenericUnitOfWork<>));
+//Inyectamos el repositorio generico
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
 var app = builder.Build();
 

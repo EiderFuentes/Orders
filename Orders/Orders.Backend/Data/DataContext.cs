@@ -11,16 +11,18 @@ namespace Orders.Backend.Data
         {
                 
         }
-
-        //Esta propieda llamada Dbset es la encargada de crear y de mapear las entidades de la base de dato
+        //Esta propiedad llamada Dbset es la encargada de crear y de mapear las entidades de la base de dato
+        public DbSet<Category> Categories { get; set; }
         public DbSet<Country> Countries { get; set; }
-
+      
         //Para hacer cambios a la base de datos
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
             //Crear Indices en la base de datos unico
+            modelBuilder.Entity<Category>().HasIndex(x => x.Name).IsUnique();
             modelBuilder.Entity<Country>().HasIndex( x => x.Name).IsUnique();
+         
         }
 
     }

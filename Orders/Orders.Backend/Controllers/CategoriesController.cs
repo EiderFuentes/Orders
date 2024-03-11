@@ -9,11 +9,9 @@ namespace Orders.Backend.Controllers
     //Anotacion para Rutear es como lo voy a ver en el Shared
     [Route("api/[controller]")]
 
-    //Herredamos de la clase GenericController<Country>
-    public class CountriesController : GenericController<Country>
+    public class CategoriesController : GenericController<Category>
     {
-        //Creamos el constructor para el controlador generico de paises
-        public CountriesController(IGenericUnitOfWork<Country> unitOfWork) : base(unitOfWork)
+        public CategoriesController(IGenericUnitOfWork<Category> unitOfWork) : base(unitOfWork)
         {
         }
     }

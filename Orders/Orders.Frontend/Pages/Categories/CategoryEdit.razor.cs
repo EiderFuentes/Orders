@@ -1,17 +1,18 @@
 ﻿using CurrieTechnologies.Razor.SweetAlert2;
 using Microsoft.AspNetCore.Components;
+using Orders.Frontend.Pages.Countries;
 using Orders.Frontend.Repositories;
 using Orders.Shared.Entities;
 using System.Net;
 
-namespace Orders.Frontend.Pages.Countries
+namespace Orders.Frontend.Pages.Categories
 {
-    public partial class CountryEdit
+    public partial class CategoryEdit
     {
         //Creamos un objeto de tipo country pero el pais es nulo
-        private Country? country;
+        private Category? category;
         //Es la representacion del codigo blazor a mi codigo C# para referenciar el formulario
-        private CountryForm? countryForm;
+        private CategoryForm? categoryForm;
 
         //Inyectamos el repositorio para poder acceder a los paises
         [Inject] private IRepository Repository { get; set; } = null!;
@@ -26,13 +27,13 @@ namespace Orders.Frontend.Pages.Countries
         protected async override Task OnParametersSetAsync()
         {
             //Voy a capturar el pais que yo necesito
-            var responseHTTP = await Repository.GetAsync<Country>($"api/countries/{Id}");
+            var responseHTTP = await Repository.GetAsync<Category>($"api/categories/{Id}");
             if (responseHTTP.Error)
             {
                 //Si el usuario se puso a joder con la respuesta Http
                 if (responseHTTP.HttpResponseMessage.StatusCode == HttpStatusCode.NotFound)
                 {
-                    NavigationManager.NavigateTo("countries");
+                    NavigationManager.NavigateTo("categories");
                 }
                 else
                 {
@@ -44,14 +45,14 @@ namespace Orders.Frontend.Pages.Countries
             else
             {
                 //Me carga el pais
-                country = responseHTTP.Response;
+                category = responseHTTP.Response;
             }
         }
 
         //Metodo para ediar el pais
         private async Task EditAsync()
         {   //Ejecutamos nuestro metodo PutAsync
-            var responseHTTP = await Repository.PutAsync("api/countries", country);
+            var responseHTTP = await Repository.PutAsync("api/categories", category);
 
             if (responseHTTP.Error)
             {
@@ -75,9 +76,9 @@ namespace Orders.Frontend.Pages.Countries
         //Creamos un metodo para salir
         private void Return()
         {
-            countryForm!.FormPostedSuccessfully = true;
+            categoryForm!.FormPostedSuccessfully = true;
             //lo ponemos a navegar y lo devolvemos al index de countries
-            NavigationManager.NavigateTo("/countries");
+            NavigationManager.NavigateTo("/categories");
         }
 
     }

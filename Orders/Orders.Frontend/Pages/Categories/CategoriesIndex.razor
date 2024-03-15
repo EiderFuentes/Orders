@@ -1,0 +1,42 @@
+﻿@page "/categories"
+
+<h3>Categoría</h3>
+
+<!--Creo un nuevo boton-->
+<div class="mb-3">
+    <a class="btn btn-primary" href="/categories/create">Nueva Categoría</a>
+</div>
+
+<!--LLamo a mi componente generico le mando el body y le paso la lista-->
+<GenericList MyList="Categories">
+    <Body>
+        <!--Clase de bootstrap-->
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Categoría</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <!--codigo C# se ejecuta primero el Countries es null-->
+                @foreach (var category in Categories!)
+                {
+                    <tr>
+                        <td>
+                            @category.Name
+                        </td>
+                        <td>
+                            <!--Boton de Editar es un link-->
+                            <a href="/categories/edit/@category.Id" class="btn btn-warning">Editar</a>
+                            <!--Boton de Editar es un Button-->
+                            <button class="btn btn-danger" @onclick=@(() => DeleteAsync(category))>Borrar</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </Body>
+</GenericList>
+
+

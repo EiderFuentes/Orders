@@ -1,18 +1,18 @@
 ﻿using CurrieTechnologies.Razor.SweetAlert2;
 using Microsoft.AspNetCore.Components;
+using Orders.Frontend.Pages.Countries;
 using Orders.Frontend.Repositories;
 using Orders.Shared.Entities;
 
-namespace Orders.Frontend.Pages.Countries
+namespace Orders.Frontend.Pages.Categories
 {
-    //Agregamos la palabra parcial para que se compilen en una sola
-    public partial class CountryCreate
+    public partial class CategoryCreate
     {
         //Creamos un objeto de tipo country
-        private Country country = new();
+        private Category category = new();
 
         //Es la representacion del codigo blazor a mi codigo C# para referenciar el formulario
-        private CountryForm? countryForm;
+        private CategoryForm? categoryForm;
 
         //Inyectamos el repositorio para poder acceder a los paises
         [Inject] private IRepository Repository { get; set; } = null!;
@@ -27,7 +27,7 @@ namespace Orders.Frontend.Pages.Countries
         private async Task CreateAsync()
         {
             //Ejecuta el reposirio para crer el pais con el metodo PostAsync
-            var responseHttp = await Repository.PostAsync("/api/countries", country);
+            var responseHttp = await Repository.PostAsync("/api/categories", category);
             if (responseHttp.Error)
             {
                 var message = await responseHttp.GetErrorMessageAsync();
@@ -51,9 +51,9 @@ namespace Orders.Frontend.Pages.Countries
         //Creamos un metodo para salir
         private void Return()
         {
-            countryForm!.FormPostedSuccessfully = true;
+            categoryForm!.FormPostedSuccessfully = true;
             //lo ponemos a navegar y lo devolvemos al index de countries
-            NavigationManager.NavigateTo("/countries");
+            NavigationManager.NavigateTo("/categories");
         }
     }
 }

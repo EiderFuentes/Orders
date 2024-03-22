@@ -2,5 +2,8 @@
 
 <h3>Crear País</h3>
 
-<!-- LLamamos nuestro formulario-->
-<CountryForm @ref="countryForm" Country="country" OnValidSubmit="CreateAsync" ReturnAction="Return" />
+<!-- LLamamos nuestro formulario generico FormWithName -->
+<FormWithName @ref="countryForm" Label="País:" Model="country" OnValidSubmit="CreateAsync" ReturnAction="Return" />
+
+<!-- LLamamos nuestro formulario como estaba antes-->
+<!-- <CountryForm @ref="countryForm" Country="country" OnValidSubmit="CreateAsync" ReturnAction="Return" />-->

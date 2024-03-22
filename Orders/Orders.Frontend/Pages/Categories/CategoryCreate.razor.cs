@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Components;
 using Orders.Frontend.Pages.Countries;
 using Orders.Frontend.Repositories;
+using Orders.Frontend.Shared;
 using Orders.Shared.Entities;
 
 namespace Orders.Frontend.Pages.Categories
@@ -12,7 +13,10 @@ namespace Orders.Frontend.Pages.Categories
         private Category category = new();
 
         //Es la representacion del codigo blazor a mi codigo C# para referenciar el formulario
-        private CategoryForm? categoryForm;
+        //private CategoryForm? categoryForm;
+
+        //Referencia al formulario generico
+        private FormWithName<Category>? categoryForm;
 
         //Inyectamos el repositorio para poder acceder a los paises
         [Inject] private IRepository Repository { get; set; } = null!;

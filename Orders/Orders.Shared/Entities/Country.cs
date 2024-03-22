@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Orders.Shared.Repositories;
+using System.ComponentModel.DataAnnotations;
 
 namespace Orders.Shared.Entities
 {
-    public class Country
+    public class Country : IEntityWithName
     {
         //Propiedades
         public int Id { get; set; }

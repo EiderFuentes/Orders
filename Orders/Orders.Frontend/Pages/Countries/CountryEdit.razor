@@ -8,6 +8,9 @@
 }
 else
 {
-    <!-- LLamamos nuestro formulario-->
-    <CountryForm @ref="countryForm" Country="country" OnValidSubmit="EditAsync" ReturnAction="Return" />
+    <!-- LLamamos nuestro formulario generico FormWithName -->
+    <FormWithName @ref="countryForm" Label="País:" Model="country" OnValidSubmit="EditAsync" ReturnAction="Return" />
+
+    <!-- LLamamos nuestro formulario CountryForm-->
+    <!--<CountryForm @ref="countryForm" Country="country" OnValidSubmit="EditAsync" ReturnAction="Return" />-->
 }

@@ -2,18 +2,20 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Routing;
-using Orders.Shared.Entities;
+using Orders.Shared.Repositories;
 
-namespace Orders.Frontend.Pages.Countries
+namespace Orders.Frontend.Shared
 {
-    //Agregamos la palabra parcial para que se compilen en una sola
-    public partial class CountryForm
+    //clase para pintar formulario generico para utilizarlo en cualquier parte
+    public partial class FormWithName<TModel> where TModel : IEntityWithName
     {
         //Contexto de edicion es un objeto
         private EditContext editContext = null!;
 
         //Le pasamos el pais que vamos a editar se lo pasamos por parametro
-        [EditorRequired, Parameter] public Country Country { get; set; } = null!;
+        [EditorRequired, Parameter] public TModel Model { get; set; } = default!;
+        //Creamos esta propiedad para pasarla como parametro a los formulario
+        [EditorRequired, Parameter] public string Label { get; set; } = null!;
         //Al parametro EventCallback le vamos a pasar codigo de esta forma lo guardamos
         [EditorRequired, Parameter] public EventCallback OnValidSubmit { get; set; }
         //Al parametro EventCallback le vamos a pasar codigo de esta forma lo cancelamos
@@ -26,7 +28,7 @@ namespace Orders.Frontend.Pages.Countries
         //Metodo para cargar el contexto
         protected override void OnInitialized()
         {
-            editContext = new(Country);
+            editContext = new(Model);
         }
 
         //Creamos este metodo para preguntrale si yo me sali del formulario sin guardar los cambios

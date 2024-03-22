@@ -1,6 +1,7 @@
 ﻿using CurrieTechnologies.Razor.SweetAlert2;
 using Microsoft.AspNetCore.Components;
 using Orders.Frontend.Repositories;
+using Orders.Frontend.Shared;
 using Orders.Shared.Entities;
 
 namespace Orders.Frontend.Pages.Countries
@@ -12,7 +13,10 @@ namespace Orders.Frontend.Pages.Countries
         private Country country = new();
 
         //Es la representacion del codigo blazor a mi codigo C# para referenciar el formulario
-        private CountryForm? countryForm;
+        //private CountryForm? countryForm;
+
+        //Referencia al formulario generico
+        private FormWithName<Country>? countryForm;
 
         //Inyectamos el repositorio para poder acceder a los paises
         [Inject] private IRepository Repository { get; set; } = null!;

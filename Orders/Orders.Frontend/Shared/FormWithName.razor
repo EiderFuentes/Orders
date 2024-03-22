@@ -1,4 +1,6 @@
-﻿<!--Navegamos con el metodo OnBeforeInternalNavigation-->
+﻿@typeparam TModel where TModel : IEntityWithName
+
+<!--Navegamos con el metodo OnBeforeInternalNavigation-->
 <NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation" />
 <!--Creamos el formulario de paises-->
 <!--Los formularios tiene un contexto y su boton de OnValidSubmit-->
@@ -7,10 +9,10 @@
     <DataAnnotationsValidator />
     <!--Pintamos el formulario de paises-->
     <div class="mb-3">
-        <label>Categoría:</label>
+        <label>@Label</label>
         <div>
-            <InputText class="form-control" @bind-Value="@Category.Name" />
-            <ValidationMessage For="@(() => Category.Name)" />
+            <InputText class="form-control" @bind-Value="@Model.Name" />
+            <ValidationMessage For="@(() => Model.Name)" />
         </div>
     </div>
     <!--Creamos los botones-->

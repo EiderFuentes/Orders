@@ -13,15 +13,28 @@ builder.Services.AddSwaggerGen();
 
 //Inyectamos la coneccion de la base de datos
 builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer("name=LocalConnection"));
+//Inyectamos nuestro alimentador
+builder.Services.AddTransient<SeedDb>();
+
 //Inyectamos la unidad de trabajo generico
 builder.Services.AddScoped(typeof(IGenericUnitOfWork<>), typeof(GenericUnitOfWork<>));
 //Inyectamos el repositorio generico
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
 var app = builder.Build();
+SeedData(app);
+void SeedData(WebApplication app)
+{
+    var scopedFactory = app.Services.GetService<IServiceScopeFactory>();
 
-//Para que funcione sin ningun problema
-//Seguridad del api
+    using (var scope = scopedFactory!.CreateScope())
+    {
+        var service = scope.ServiceProvider.GetService<SeedDb>();
+        service!.SeedAsync().Wait();
+    }
+}
+
+//Seguridad del API Para que funcione sin ningun problema
 app.UseCors(x => x
 .AllowAnyMethod()
 .AllowAnyHeader()

@@ -8,6 +8,9 @@
 }
 else
 {
+    <!-- LLamamos nuestro formulario generico FormWithName -->
+    <FormWithName @ref="categoryForm" Label="Categoría:" Model="category" OnValidSubmit="EditAsync" ReturnAction="Return" />
+
     <!-- LLamamos nuestro formulario-->
-    <CategoryForm @ref="categoryForm" Category="category" OnValidSubmit="EditAsync" ReturnAction="Return" />
+    <!--<CategoryForm @ref="categoryForm" Category="category" OnValidSubmit="EditAsync" ReturnAction="Return" />-->
 }

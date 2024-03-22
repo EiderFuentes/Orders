@@ -2,5 +2,9 @@
 
 <h3>Crear Categoría</h3>
 
+
+<!-- LLamamos nuestro formulario generico FormWithName -->
+<FormWithName @ref="categoryForm" Label="Categoría:" Model="category" OnValidSubmit="CreateAsync" ReturnAction="Return" />
+
 <!-- LLamamos nuestro formulario-->
-<CategoryForm @ref="categoryForm" Category="category" OnValidSubmit="CreateAsync" ReturnAction="Return" />
+<!--<CategoryForm @ref="categoryForm" Category="category" OnValidSubmit="CreateAsync" ReturnAction="Return" />-->

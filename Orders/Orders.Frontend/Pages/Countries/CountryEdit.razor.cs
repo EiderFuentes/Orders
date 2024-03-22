@@ -1,6 +1,7 @@
 ﻿using CurrieTechnologies.Razor.SweetAlert2;
 using Microsoft.AspNetCore.Components;
 using Orders.Frontend.Repositories;
+using Orders.Frontend.Shared;
 using Orders.Shared.Entities;
 using System.Net;
 
@@ -11,7 +12,10 @@ namespace Orders.Frontend.Pages.Countries
         //Creamos un objeto de tipo country pero el pais es nulo
         private Country? country;
         //Es la representacion del codigo blazor a mi codigo C# para referenciar el formulario
-        private CountryForm? countryForm;
+        //private CountryForm? countryForm;
+
+        //Referencia al formulario generico
+        private FormWithName<Country>? countryForm;
 
         //Inyectamos el repositorio para poder acceder a los paises
         [Inject] private IRepository Repository { get; set; } = null!;

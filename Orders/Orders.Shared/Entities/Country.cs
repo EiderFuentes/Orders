@@ -15,5 +15,12 @@ namespace Orders.Shared.Entities
         //DataAnnotations para validar que el campo ingrese vacio a la base de dato
         [Required(ErrorMessage = "El campo {0} es requerido.")]
         public string Name { get; set; } = null!;
+
+        public ICollection<State>? States { get; set; }
+
+        //Cuenta cuantos estado tiene un pais
+        [Display(Name = "Departamentos / Estados")]
+        public int StatesNumber => States == null || States.Count == 0 ? 0 : States.Count;
+
     }
 }

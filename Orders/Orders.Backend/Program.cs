@@ -3,11 +3,13 @@ using Orders.Backend.Data;
 using Orders.Backend.Repositories.Implementations;
 using Orders.Backend.Repositories.Interfaces;
 using Orders.Backend.UnitsOfWork.Implementations;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+//Para evitar la redundancia ciclica en la respuesta de los JSON
+builder.Services.AddControllers()
+    .AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -20,6 +22,12 @@ builder.Services.AddTransient<SeedDb>();
 builder.Services.AddScoped(typeof(IGenericUnitOfWork<>), typeof(GenericUnitOfWork<>));
 //Inyectamos el repositorio generico
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
+//Inyectamos la unidad de trabajo de paises
+builder.Services.AddScoped<ICountriesRepository, CountriesRepository>();
+//Inyectamos el repositorio de paises
+builder.Services.AddScoped<ICountriesUnitOfWork, CountriesUnitOfWork>();
+
 
 var app = builder.Build();
 SeedData(app);

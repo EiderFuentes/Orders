@@ -21,7 +21,7 @@ namespace Orders.Backend.Repositories.Implementations
         }
 
         //Metodo para Agregar en repositorio generico
-        public async Task<ActionResponse<T>> AddAsync(T entity)
+        public virtual async Task<ActionResponse<T>> AddAsync(T entity)
         {
             //agrega mi entity que yo le estoy mandando
             _context.Add(entity);
@@ -46,7 +46,7 @@ namespace Orders.Backend.Repositories.Implementations
         }
 
         //Metodo para Eliminar en repositorio generico
-        public async Task<ActionResponse<T>> DeleteAsync(int id)
+        public virtual async Task<ActionResponse<T>> DeleteAsync(int id)
         {
             //Busca el id para borarlo
             var row = await _entity.FindAsync(id);
@@ -79,7 +79,7 @@ namespace Orders.Backend.Repositories.Implementations
 
         }
         //Metodo que busca en objeto en el repositorio generico
-        public async Task<ActionResponse<T>> GetAsync(int id)
+        public virtual async Task<ActionResponse<T>> GetAsync(int id)
         {
             //Busca el id para mostralo
             var row = await _entity.FindAsync(id);
@@ -100,7 +100,7 @@ namespace Orders.Backend.Repositories.Implementations
         }
 
         //Metodo que devuelve la lista en repositorio generico
-        public async Task<ActionResponse<IEnumerable<T>>> GetAsync()
+        public virtual async Task<ActionResponse<IEnumerable<T>>> GetAsync()
         {
             return new ActionResponse<IEnumerable<T>>
             {
@@ -111,7 +111,7 @@ namespace Orders.Backend.Repositories.Implementations
         }
 
         //Metodo para actulizar en repositorio generico
-        public async Task<ActionResponse<T>> UpdateAsync(T entity)
+        public virtual async Task<ActionResponse<T>> UpdateAsync(T entity)
         {
             _context.Update(entity);
             try

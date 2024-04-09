@@ -55,7 +55,7 @@ namespace Orders.Frontend.Pages.Categories
                 return;
             }
 
-            var responseHTTP = await Repository.DeleteAsync($"api/categories/{category.Id}");
+            var responseHTTP = await Repository.DeleteAsync<Category>($"api/categories/{category.Id}");
             if (responseHTTP.Error)
             {
                 //Si el usuario se puso a joder con la respuesta Http

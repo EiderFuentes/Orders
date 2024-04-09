@@ -56,7 +56,7 @@ namespace Orders.Frontend.Pages.Countries
                 return;
             }
 
-            var responseHTTP = await Repository.DeleteAsync($"api/countries/{country.Id}");
+            var responseHTTP = await Repository.DeleteAsync<Country>($"api/countries/{country.Id}");
             if (responseHTTP.Error)
             {
                 //Si el usuario se puso a joder con la respuesta Http

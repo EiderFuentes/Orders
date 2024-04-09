@@ -11,12 +11,10 @@
         //Metodo post devuelve respuesta
         Task<HttpResponseWrapper<TActionResponse>> PostAsync<T, TActionResponse>(string url, T model);
         //Metodo Delete no devuelve respuesta
-        Task<HttpResponseWrapper<object>> DeleteAsync(string url);
+        Task<HttpResponseWrapper<object>> DeleteAsync<T>(string url);
         //Metodo put no devuelve respuesta
         Task<HttpResponseWrapper<object>> PutAsync<T>(string url, T model);
         //Metodo post devuelve respuesta
-        Task<HttpResponseWrapper<TActionResponse>> PuttAsync<T, TActionResponse>(string url, T model);
-
-
+        Task<HttpResponseWrapper<TActionResponse>> PutAsync<T, TActionResponse>(string url, T model);
     }
 }

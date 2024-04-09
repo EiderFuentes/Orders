@@ -68,7 +68,7 @@ namespace Orders.Frontend.Repositories
             return new HttpResponseWrapper<TActionResponse>(default, true, responseHttp);
         }
 
-        public async Task<HttpResponseWrapper<object>> DeleteAsync(string url)
+        public async Task<HttpResponseWrapper<object>> DeleteAsync<T>(string url)
         {
             //Hacemos un delete a esa url
             var responseHttp = await _httpClient.DeleteAsync(url);
@@ -88,7 +88,7 @@ namespace Orders.Frontend.Repositories
             return new HttpResponseWrapper<object>(null, !responseHttp.IsSuccessStatusCode, responseHttp);
         }
 
-        public async Task<HttpResponseWrapper<TActionResponse>> PuttAsync<T, TActionResponse>(string url, T model)
+        public async Task<HttpResponseWrapper<TActionResponse>> PutAsync<T, TActionResponse>(string url, T model)
         {
             // Serealizar es coger en objeto en memoria y volver un string en formato json
             var messageJSON = JsonSerializer.Serialize(model);

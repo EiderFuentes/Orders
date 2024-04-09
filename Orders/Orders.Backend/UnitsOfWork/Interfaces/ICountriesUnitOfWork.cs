@@ -1,4 +1,5 @@
-﻿using Orders.Shared.Entities;
+﻿using Orders.Shared.DTOs;
+using Orders.Shared.Entities;
 using Orders.Shared.Responses;
 
 namespace Orders.Backend.UnitsOfWork.Interfaces
@@ -9,5 +10,6 @@ namespace Orders.Backend.UnitsOfWork.Interfaces
 
         Task<ActionResponse<IEnumerable<Country>>> GetAsync();
 
+        Task<ActionResponse<IEnumerable<Country>>> GetAsync(PaginationDTO pagination);
     }
 }

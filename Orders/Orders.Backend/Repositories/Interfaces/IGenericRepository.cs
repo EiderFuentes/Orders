@@ -1,4 +1,5 @@
-﻿using Orders.Shared.Responses;
+﻿using Orders.Shared.DTOs;
+using Orders.Shared.Responses;
 
 namespace Orders.Backend.Repositories.Interfaces
 {
@@ -10,6 +11,11 @@ namespace Orders.Backend.Repositories.Interfaces
 
         //Devuelve todas las lista de las entidades
         Task<ActionResponse<IEnumerable<T>>> GetAsync();
+
+        //Devuelve en enumerable de paginacion
+        Task<ActionResponse<IEnumerable<T>>> GetAsync(PaginationDTO pagination);
+
+        Task<ActionResponse<int>> GetTotalPagesAsync(PaginationDTO pagination);
 
         //Agrega las entidades
         Task<ActionResponse<T>> AddAsync(T entity);

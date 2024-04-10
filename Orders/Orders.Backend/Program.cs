@@ -24,10 +24,12 @@ builder.Services.AddScoped(typeof(IGenericUnitOfWork<>), typeof(GenericUnitOfWor
 //Inyectamos el repositorio generico
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
+builder.Services.AddScoped<ICategoriesRepository, CategoriesRepository>();
 builder.Services.AddScoped<ICitiesRepository, CitiesRepository>();// Inyectamos el repositorio de cuidades
 builder.Services.AddScoped<ICountriesRepository, CountriesRepository>();//Inyectamos el repositorio de paises
 builder.Services.AddScoped<IStatesRepository, StatesRepository>();//Inyectamos el repositorio de estados
 
+builder.Services.AddScoped<ICategoriesUnitOfWork, CategoriesUnitOfWork>();
 builder.Services.AddScoped<ICitiesUnitOfWork, CitiesUnitOfWork>();//Inyectamos la unidad de trabajo de cuidades
 builder.Services.AddScoped<ICountriesUnitOfWork, CountriesUnitOfWork>();//Inyectamos la unidad de trabajo de paises
 builder.Services.AddScoped<IStatesUnitOfWork, StatesUnitOfWork>();//Inyectamos la unidad de trabajo de estados

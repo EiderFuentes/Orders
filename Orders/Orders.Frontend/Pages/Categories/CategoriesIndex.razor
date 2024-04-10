@@ -10,6 +10,10 @@
 <!--LLamo a mi componente generico le mando el body y le paso la lista-->
 <GenericList MyList="Categories">
     <Body>
+        <Pagination CurrentPage="currentPage"
+                    TotalPages="totalPages"
+                    SelectedPage="SelectedPageAsync" />
+
         <!--Clase de bootstrap-->
         <table class="table table-striped">
             <thead>

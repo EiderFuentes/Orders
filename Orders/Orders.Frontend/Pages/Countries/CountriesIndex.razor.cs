@@ -9,6 +9,9 @@ namespace Orders.Frontend.Pages.Countries
     //Agregamos la palabra partial que hay 2 clase que significan lo mismo pero cuando se compilan generan una sola
     public partial class CountriesIndex
     {
+        private int currentPage = 1;
+        private int totalPages;
+
         //Creamo una directiva llamada Inject para asi inyectar un repositorio
         [Inject] private IRepository Repository { get; set; } = null!;
         // Inyectamos el SweetAlertService que es la libreria de alertas
@@ -23,23 +26,49 @@ namespace Orders.Frontend.Pages.Countries
         protected override async Task OnInitializedAsync()
         {
             //Creamos este nuevo metodo 
-            await LoadAsybc();
+            await LoadAsync();
         }
 
-        private async Task LoadAsybc()
+        private async Task SelectedPageAsync(int page)
         {
-            //Estamos yendo al backend para así obtener una lista de países
-            var responseHppt = await Repository.GetAsync<List<Country>>("api/countries");
-            if (responseHppt.Error)
+            currentPage = page;
+            await LoadAsync(page);
+        }
+        //Metodo que me carge la lista
+        private async Task LoadAsync(int page = 1)
+        {
+            var ok = await LoadListAsync(page);
+            if (ok)
             {
-                var message = await responseHppt.GetErrorMessageAsync();
+                await LoadPagesAsync();
+            }
+        }
+
+        private async Task<bool> LoadListAsync(int page)
+        {
+            var responseHttp = await Repository.GetAsync<List<Country>>($"api/countries?page={page}");
+            if (responseHttp.Error)
+            {
+                var message = await responseHttp.GetErrorMessageAsync();
+                await SweetAlertService.FireAsync("Error", message, SweetAlertIcon.Error);
+                return false;
+            }
+            Countries = responseHttp.Response;
+            return true;
+        }
+
+        private async Task LoadPagesAsync()
+        {
+            var responseHttp = await Repository.GetAsync<int>("api/countries/totalPages");
+            if (responseHttp.Error)
+            {
+                var message = await responseHttp.GetErrorMessageAsync();
                 await SweetAlertService.FireAsync("Error", message, SweetAlertIcon.Error);
                 return;
             }
-            //Lista de paises que yo obtuve
-            Countries = responseHppt.Response;
-
+            totalPages = responseHttp.Response;
         }
+
         //Metodo para eliminar un pais
         private async Task DeleteAsync(Country country)
         {
@@ -74,7 +103,7 @@ namespace Orders.Frontend.Pages.Countries
             }
 
             //Recargamos la pagina para que no me muestre el pais que borramos
-            await LoadAsybc();
+            await LoadAsync();
             //Creamos el Toast para mostrar la alerta del registro con exito
             var toast = SweetAlertService.Mixin(new SweetAlertOptions
             {

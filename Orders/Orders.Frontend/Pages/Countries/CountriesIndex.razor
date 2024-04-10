@@ -10,13 +10,17 @@
 <!--LLamo a mi componente generico le mando el body y le paso la lista-->
 <GenericList MyList="Countries">
     <Body>
+        <Pagination CurrentPage="currentPage"
+                    TotalPages="totalPages"
+                    SelectedPage="SelectedPageAsync" />
+
         <!--Clase de bootstrap-->
         <table class="table table-striped">
             <thead>
                 <tr>
                     <th>País</th>
-                    <th>Departamentos / Estados</th>
-                    <th></th>
+                    <th style="width:210px">Estados / Departamentos</th>
+                    <th style="width:210px"></th>
                 </tr>
             </thead>
             <tbody>

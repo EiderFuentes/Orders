@@ -38,9 +38,9 @@
                         </td>
                         <td>
                             <!--Boton de Editar es un link-->
-                            <a href="/categories/edit/@category.Id" class="btn btn-warning">Editar</a>
+                            <a href="/categories/edit/@category.Id" class="btn btn-warning btn-sm">Editar</a>
                             <!--Boton de Editar es un Button-->
-                            <button class="btn btn-danger" @onclick=@(() => DeleteAsync(category))>Borrar</button>
+                            <button class="btn btn-danger btn-sm" @onclick=@(() => DeleteAsync(category))>Borrar</button>
                         </td>
                     </tr>
                 }

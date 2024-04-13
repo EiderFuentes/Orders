@@ -1,4 +1,5 @@
 ﻿using CurrieTechnologies.Razor.SweetAlert2;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using Orders.Frontend.Repositories;
 using Orders.Frontend.Shared;
@@ -7,6 +8,7 @@ using Orders.Shared.Entities;
 namespace Orders.Frontend.Pages.Countries
 {
     //Agregamos la palabra parcial para que se compilen en una sola
+    [Authorize(Roles = "Admin")]
     public partial class CountryCreate
     {
         //Creamos un objeto de tipo country

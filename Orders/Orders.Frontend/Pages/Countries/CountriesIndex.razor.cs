@@ -1,4 +1,5 @@
 ﻿using CurrieTechnologies.Razor.SweetAlert2;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using Orders.Frontend.Repositories;
 using Orders.Shared.Entities;
@@ -7,6 +8,7 @@ using System.Net;
 namespace Orders.Frontend.Pages.Countries
 {
     //Agregamos la palabra partial que hay 2 clase que significan lo mismo pero cuando se compilan generan una sola
+    [Authorize(Roles = "Admin")]
     public partial class CountriesIndex
     {
         private int currentPage = 1;

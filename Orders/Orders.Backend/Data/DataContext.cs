@@ -1,10 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Orders.Shared.Entities;
 
 namespace Orders.Backend.Data
 {
     // la clase Datacontext Herreda de la clase DbContext
-    public class DataContext : DbContext
+    public class DataContext : IdentityDbContext<User>
     {
         // Creo el constructor para conectarme a la base de datos
         public DataContext(DbContextOptions<DataContext> options) : base(options) 

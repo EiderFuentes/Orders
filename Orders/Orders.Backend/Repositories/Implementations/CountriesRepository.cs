@@ -75,6 +75,7 @@ namespace Orders.Backend.Repositories.Implementations
                     .ToListAsync()
             };
         }
+
         //Metodo GetTotalPagesAsync filtro
         public override async Task<ActionResponse<int>> GetTotalPagesAsync(PaginationDTO pagination)
         {
@@ -92,6 +93,13 @@ namespace Orders.Backend.Repositories.Implementations
                 WasSuccess = true,
                 Result = totalPages
             };
+        }
+
+        public async Task<IEnumerable<Country>> GetComboAsync()
+        {
+            return await _context.Countries
+                .OrderBy(c => c.Name)
+                .ToListAsync();
         }
     }
 }

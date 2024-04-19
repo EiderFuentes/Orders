@@ -8,9 +8,10 @@ using Orders.Shared.Entities;
 
 namespace Orders.Backend.Controllers
 {
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    
     //Anotacion para que la clase sea un Controlador
     [ApiController]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     //Anotacion para Rutear es como lo voy a ver en el Shared
     [Route("api/[controller]")]
 
@@ -23,6 +24,13 @@ namespace Orders.Backend.Controllers
         public CountriesController(IGenericUnitOfWork<Country> unitOfWork, ICountriesUnitOfWork countriesUnitOfWork) : base(unitOfWork)
         {
             _countriesUnitOfWork = countriesUnitOfWork;
+        }
+
+        [AllowAnonymous]//Combo no protegido
+        [HttpGet("combo")]
+        public async Task<IActionResult> GetComboAsync()
+        {
+            return Ok(await _countriesUnitOfWork.GetComboAsync());
         }
 
         //Metodo full

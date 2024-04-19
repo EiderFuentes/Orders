@@ -8,8 +8,9 @@ using Orders.Shared.Entities;
 
 namespace Orders.Backend.Controllers
 {
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+   
     [ApiController]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
     public class CitiesController : GenericController<City>
     {
@@ -18,6 +19,13 @@ namespace Orders.Backend.Controllers
         public CitiesController(IGenericUnitOfWork<City> unitOfWork, ICitiesUnitOfWork citiesUnitOfWork) : base(unitOfWork)
         {
            _citiesUnitOfWork = citiesUnitOfWork;
+        }
+
+        [AllowAnonymous]
+        [HttpGet("combo/{stateId:int}")]
+        public async Task<IActionResult> GetComboAsync(int stateId)
+        {
+            return Ok(await _citiesUnitOfWork.GetComboAsync(stateId));
         }
 
         [HttpGet]

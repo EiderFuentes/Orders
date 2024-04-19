@@ -8,50 +8,57 @@ using Orders.Shared.Responses;
 
 namespace Orders.Backend.Repositories.Implementations
 {
-      public class CategoriesRepository : GenericRepository<Category>, ICategoriesRepository
+    public class CategoriesRepository : GenericRepository<Category>, ICategoriesRepository
+    {
+        private readonly DataContext _context;
+
+        public CategoriesRepository(DataContext context) : base(context)
         {
-            private readonly DataContext _context;
+            _context = context;
+        }
 
-            public CategoriesRepository(DataContext context) : base(context)
+        public override async Task<ActionResponse<IEnumerable<Category>>> GetAsync(PaginationDTO pagination)
+        {
+            var queryable = _context.Categories.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(pagination.Filter))
             {
-                _context = context;
+                queryable = queryable.Where(x => x.Name.ToLower().Contains(pagination.Filter.ToLower()));
             }
 
-            public override async Task<ActionResponse<IEnumerable<Category>>> GetAsync(PaginationDTO pagination)
+            return new ActionResponse<IEnumerable<Category>>
             {
-                var queryable = _context.Categories.AsQueryable();
+                WasSuccess = true,
+                Result = await queryable
+                    .OrderBy(x => x.Name)
+                    .Paginate(pagination)
+                    .ToListAsync()
+            };
+        }
 
-                if (!string.IsNullOrWhiteSpace(pagination.Filter))
-                {
-                    queryable = queryable.Where(x => x.Name.ToLower().Contains(pagination.Filter.ToLower()));
-                }
+        public override async Task<ActionResponse<int>> GetTotalPagesAsync(PaginationDTO pagination)
+        {
+            var queryable = _context.Categories.AsQueryable();
 
-                return new ActionResponse<IEnumerable<Category>>
-                {
-                    WasSuccess = true,
-                    Result = await queryable
-                        .OrderBy(x => x.Name)
-                        .Paginate(pagination)
-                        .ToListAsync()
-                };
+            if (!string.IsNullOrWhiteSpace(pagination.Filter))
+            {
+                queryable = queryable.Where(x => x.Name.ToLower().Contains(pagination.Filter.ToLower()));
             }
 
-            public override async Task<ActionResponse<int>> GetTotalPagesAsync(PaginationDTO pagination)
+            double count = await queryable.CountAsync();
+            int totalPages = (int)Math.Ceiling(count / pagination.RecordsNumber);
+            return new ActionResponse<int>
             {
-                var queryable = _context.Categories.AsQueryable();
+                WasSuccess = true,
+                Result = totalPages
+            };
+        }
 
-                if (!string.IsNullOrWhiteSpace(pagination.Filter))
-                {
-                    queryable = queryable.Where(x => x.Name.ToLower().Contains(pagination.Filter.ToLower()));
-                }
-
-                double count = await queryable.CountAsync();
-                int totalPages = (int)Math.Ceiling(count / pagination.RecordsNumber);
-                return new ActionResponse<int>
-                {
-                    WasSuccess = true,
-                    Result = totalPages
-                };
-            }
-      }
+        public async Task<IEnumerable<Category>> GetComboAsync()
+        {
+            return await _context.Categories
+                .OrderBy(c => c.Name)
+                .ToListAsync();
+        }
+    }
 }

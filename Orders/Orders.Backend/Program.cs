@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Orders.Backend.Data;
+using Orders.Backend.Helpers;
 using Orders.Backend.Repositories.Implementations;
 using Orders.Backend.Repositories.Interfaces;
 using Orders.Backend.UnitsOfWork.Implementations;
@@ -57,6 +58,7 @@ builder.Services.AddSwaggerGen(c =>
 //Inyectamos la coneccion de la base de datos
 builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer("name=LocalConnection"));
 builder.Services.AddTransient<SeedDb>();//Inyectamos nuestro alimentador
+builder.Services.AddScoped<IFileStorage, FileStorage>(); // Inyectamos nuestro blob stora
 
 //Inyectamos la unidad de trabajo generico
 builder.Services.AddScoped(typeof(IGenericUnitOfWork<>), typeof(GenericUnitOfWork<>));

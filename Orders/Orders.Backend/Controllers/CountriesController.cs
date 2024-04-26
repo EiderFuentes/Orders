@@ -8,14 +8,9 @@ using Orders.Shared.Entities;
 
 namespace Orders.Backend.Controllers
 {
-    
-    //Anotacion para que la clase sea un Controlador
-    [ApiController]
+    [ApiController]//Anotacion para que la clase sea un Controlador
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    //Anotacion para Rutear es como lo voy a ver en el Shared
-    [Route("api/[controller]")]
-
-    //Herredamos de la clase GenericController<Country>
+    [Route("api/[controller]")]//Anotacion para Rutear es como lo voy a ver en el Swagger
     public class CountriesController : GenericController<Country>
     {
         private readonly ICountriesUnitOfWork _countriesUnitOfWork;
@@ -56,7 +51,6 @@ namespace Orders.Backend.Controllers
             }
             return BadRequest();
         }
-
 
         [HttpGet("{id}")]
         public override async Task<IActionResult> GetAsync(int id)

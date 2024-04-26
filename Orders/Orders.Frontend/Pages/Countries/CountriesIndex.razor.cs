@@ -14,7 +14,7 @@ namespace Orders.Frontend.Pages.Countries
         private int currentPage = 1;
         private int totalPages;
 
-        //Creamo una directiva llamada Inject para asi inyectar un repositorio
+        //Creamo una directiva llamada Inject para asi inyectar el repositorio
         [Inject] private IRepository Repository { get; set; } = null!;
         // Inyectamos el SweetAlertService que es la libreria de alertas
         [Inject] private SweetAlertService SweetAlertService { get; set; } = null!;
@@ -24,10 +24,10 @@ namespace Orders.Frontend.Pages.Countries
         [Parameter, SupplyParameterFromQuery] public string Page { get; set; } = string.Empty;
         [Parameter, SupplyParameterFromQuery] public string Filter { get; set; } = string.Empty;
 
-        //Hacemos el llamado del reposity, el country puede ser null con el ?
+        //Hacemos el llamado del reposity de country
         public List<Country>? Countries { get; set; }
 
-        // Ciclo OnInitializedAsync significa cuando la pagina carge automaticamente se va a ejecutar 
+        // Metodo OnInitializedAsync significa cuando la pagina carge automaticamente se va a ejecutar 
         protected override async Task OnInitializedAsync()
         {
             //Creamos este nuevo metodo 

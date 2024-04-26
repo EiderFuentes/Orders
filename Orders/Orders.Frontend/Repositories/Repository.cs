@@ -28,8 +28,8 @@ namespace Orders.Frontend.Repositories
             var responseHttp = await _httpClient.GetAsync(url);
             //la respuesta es un OK
             if (responseHttp.IsSuccessStatusCode)
-            {                       //Metodo privado UnserializeAnswer con ctr.
-                var response = await UnserializeAnswerAsync<T>(responseHttp);
+            {                  
+                var response = await UnserializeAnswerAsync<T>(responseHttp);//Metodo privado UnserializeAnswer
                 return new HttpResponseWrapper<T>(response, false, responseHttp);
             }
             //Cuando el get saque un error
@@ -106,7 +106,7 @@ namespace Orders.Frontend.Repositories
             return new HttpResponseWrapper<TActionResponse>(default, true, responseHttp);
         }
 
-        //Generamos el metodo privado UnserializeAnswer con ctr. Sirve para Deserializar el objeto
+        //Generamos el metodo privado UnserializeAnswer con ctr. que Sirve para Deserializar el objeto
         private async Task<T> UnserializeAnswerAsync<T>(HttpResponseMessage responseHttp)
         {   //Este metodo lo que hace el leer el json
             var response = await responseHttp.Content.ReadAsStringAsync();

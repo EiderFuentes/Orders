@@ -4,12 +4,12 @@ using Orders.Shared.DTOs;
 
 namespace Orders.Backend.Controllers
 {
-    // la clase GenericController hereda de Controller
+    // la clase GenericController herreda de Controller
     public class GenericController<T> : Controller where T : class
     {
         private readonly IGenericUnitOfWork<T> _unitOfWork;
 
-        //Creamos el constructor para inyercta la unidad de trabajo
+        //Creamos el constructor para inyerctar la unidad de trabajo
         public GenericController(IGenericUnitOfWork<T> unitOfWork)
         {
             _unitOfWork = unitOfWork;

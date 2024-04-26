@@ -8,8 +8,6 @@ using Orders.Shared.Entities;
 
 namespace Orders.Backend.Controllers
 {
-
-    //Anotacion para que la clase sea un Controlador
     [ApiController]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     //Anotacion para Rutear es como lo voy a ver en el Shared

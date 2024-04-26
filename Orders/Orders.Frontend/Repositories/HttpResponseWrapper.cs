@@ -2,24 +2,20 @@
 
 namespace Orders.Frontend.Repositories
 {
-    //Clase Generica que me sirve para envolver las respuestas
-    //Abreviacion de tipo,anotacion Diamante
+    //Clase Generica que me sirve para envolver las respuestas o errores, Abreviacion de tipo T,anotacion Diamante
     public class HttpResponseWrapper<T>
     {
-        //Creamos un contructor
         public HttpResponseWrapper(T? response, bool error, HttpResponseMessage httpResponseMessage)
         {
             Response = response;
             Error = error;
             HttpResponseMessage = httpResponseMessage;
         }
-
-        //Creamos las propiedades
         public T? Response { get; }
         public bool Error { get; }
         public HttpResponseMessage HttpResponseMessage { get; }
 
-        //Creamos un metodo publico asincrono
+        //Creamos un metodo publico asincronico
         public async Task<string?> GetErrorMessageAsync()
         {
             if (!Error)

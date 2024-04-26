@@ -56,8 +56,7 @@ builder.Services.AddSwaggerGen(c =>
 
 //Inyectamos la coneccion de la base de datos
 builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer("name=LocalConnection"));
-//Inyectamos nuestro alimentador
-builder.Services.AddTransient<SeedDb>();
+builder.Services.AddTransient<SeedDb>();//Inyectamos nuestro alimentador
 
 //Inyectamos la unidad de trabajo generico
 builder.Services.AddScoped(typeof(IGenericUnitOfWork<>), typeof(GenericUnitOfWork<>));
@@ -114,7 +113,7 @@ void SeedData(WebApplication app)
     }
 }
 
-//Seguridad del API Para que funcione sin ningun problema
+//para habilitar su consumo agregamos la Seguridad del API Para que funcione sin ningun problema
 app.UseCors(x => x
 .AllowAnyMethod()
 .AllowAnyHeader()

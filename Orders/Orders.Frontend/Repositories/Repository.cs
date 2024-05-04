@@ -105,6 +105,11 @@ namespace Orders.Frontend.Repositories
             //Cuando el put saque un error
             return new HttpResponseWrapper<TActionResponse>(default, true, responseHttp);
         }
+        public async Task<HttpResponseWrapper<object>> GetAsync(string url)
+        {
+            var responseHTTP = await _httpClient.GetAsync(url);
+            return new HttpResponseWrapper<object>(null, !responseHTTP.IsSuccessStatusCode, responseHTTP);
+        }
 
         //Generamos el metodo privado UnserializeAnswer con ctr. que Sirve para Deserializar el objeto
         private async Task<T> UnserializeAnswerAsync<T>(HttpResponseMessage responseHttp)

@@ -88,7 +88,7 @@ namespace Orders.Backend.Repositories.Implementations
         {
             return await _userManager.UpdateAsync(user);
         }
-
+        //Reenvio correo de confirmacion
         public async Task<string> GenerateEmailConfirmationTokenAsync(User user)
         {
             return await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -97,6 +97,17 @@ namespace Orders.Backend.Repositories.Implementations
         public async Task<IdentityResult> ConfirmEmailAsync(User user, string token)
         {
             return await _userManager.ConfirmEmailAsync(user, token);
+        }
+
+        //Recuperacion de contraseña
+        public async Task<string> GeneratePasswordResetTokenAsync(User user)
+        {
+            return await _userManager.GeneratePasswordResetTokenAsync(user);
+        }
+
+        public async Task<IdentityResult> ResetPasswordAsync(User user, string token, string password)
+        {
+            return await _userManager.ResetPasswordAsync(user, token, password);
         }
 
     }

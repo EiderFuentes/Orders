@@ -34,6 +34,14 @@ namespace Orders.Frontend.Pages.Countries
             await LoadAsync();
         }
 
+        //Filtro Genérico
+        private async Task FilterCallBack(string filter)
+        {
+            Filter = filter;
+            await ApplyFilterAsync();
+            StateHasChanged();
+        }
+
         private async Task SelectedPageAsync(int page)
         {
             currentPage = page;
@@ -89,13 +97,6 @@ namespace Orders.Frontend.Pages.Countries
                 return;
             }
             totalPages = responseHttp.Response;
-        }
-
-        //Metodo para limpiar el filtro
-        private async Task CleanFilterAsync()
-        {
-            Filter = string.Empty;
-            await ApplyFilterAsync();
         }
 
         //Metodo para limpiar el Aplicar el filtro

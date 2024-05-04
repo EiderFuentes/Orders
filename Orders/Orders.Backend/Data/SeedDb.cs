@@ -21,7 +21,7 @@ namespace Orders.Backend.Data
         {
             await _context.Database.EnsureCreatedAsync();
             await CheckCountriesFullAsync();
-            //await CheckCountriesAsync();
+            await CheckCountriesAsync();
             await CheckCategoriesAsync();
             await CheckRolesAsync();
             await CheckUserAsync("1010", "Eider", "Fuentes", "eider@yopmail.com", "314 398 5106", "Calle Luna Calle Sol", UserType.Admin);

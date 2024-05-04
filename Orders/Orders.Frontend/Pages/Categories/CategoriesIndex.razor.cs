@@ -33,6 +33,14 @@ namespace Orders.Frontend.Pages.Categories
             await LoadAsync();
         }
 
+        //Filtro Genérico
+        private async Task FilterCallBack(string filter)
+        {
+            Filter = filter;
+            await ApplyFilterAsync();
+            StateHasChanged();//llamo el metodo para que refresque la interfaz
+        }
+
         private async Task SelectedPageAsync(int page)
         {
             currentPage = page;
@@ -70,12 +78,6 @@ namespace Orders.Frontend.Pages.Categories
             }
             Categories = responseHttp.Response;
             return true;
-        }
-
-        private async Task CleanFilterAsync()
-        {
-            Filter = string.Empty;
-            await ApplyFilterAsync();
         }
 
         private async Task ApplyFilterAsync()

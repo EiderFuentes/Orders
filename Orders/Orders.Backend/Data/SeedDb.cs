@@ -20,12 +20,25 @@ namespace Orders.Backend.Data
         public async Task SeedAsync()
         {
             await _context.Database.EnsureCreatedAsync();
-            await CheckCountriesAsync();
+            await CheckCountriesFullAsync();
+            //await CheckCountriesAsync();
             await CheckCategoriesAsync();
             await CheckRolesAsync();
             await CheckUserAsync("1010", "Eider", "Fuentes", "eider@yopmail.com", "314 398 5106", "Calle Luna Calle Sol", UserType.Admin);
 
         }
+
+        private async Task CheckCountriesFullAsync()
+        {
+
+            if (!_context.Countries.Any())
+            {
+                var countriesStatesCitiesSQLScript = File.ReadAllText("Data\\CountriesStatesCities.sql");
+                await _context.Database.ExecuteSqlRawAsync(countriesStatesCitiesSQLScript);
+            }
+
+        }
+
         //Metodo que crea los roles
         private async Task CheckRolesAsync()
         {

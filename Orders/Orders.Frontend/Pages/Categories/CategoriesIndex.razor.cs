@@ -22,6 +22,7 @@ namespace Orders.Frontend.Pages.Categories
 
         [Parameter, SupplyParameterFromQuery] public string Page { get; set; } = string.Empty;
         [Parameter, SupplyParameterFromQuery] public string Filter { get; set; } = string.Empty;
+        [Parameter, SupplyParameterFromQuery] public int RecordsNumber { get; set; } = 10;
 
         //Hacemos el llamado del reposity, el country puede ser null con el ?
         public List<Category>? Categories { get; set; }
@@ -31,6 +32,14 @@ namespace Orders.Frontend.Pages.Categories
         {
             //Creamos este nuevo metodo 
             await LoadAsync();
+        }
+
+        private async Task SelectedRecordsNumberAsync(int recordsnumber)
+        {
+            RecordsNumber = recordsnumber;
+            int page = 1;
+            await LoadAsync(page);
+            await SelectedPageAsync(page);
         }
 
         //Filtro Genérico
@@ -60,10 +69,18 @@ namespace Orders.Frontend.Pages.Categories
                 await LoadPagesAsync();
             }
         }
+        private void ValidateRecordsNumber(int recordsnumber)
+        {
+            if (recordsnumber == 0)
+            {
+                RecordsNumber = 10;
+            }
+        }
 
         private async Task<bool> LoadListAsync(int page)
         {
-            var url = $"api/categories/?page={page}";
+            ValidateRecordsNumber(RecordsNumber);
+            var url = $"api/categories?page={page}&recordsnumber={RecordsNumber}";
             if (!string.IsNullOrEmpty(Filter))
             {
                 url += $"&filter={Filter}";
@@ -89,10 +106,11 @@ namespace Orders.Frontend.Pages.Categories
 
         private async Task LoadPagesAsync()
         {
-            var url = $"api/categories/totalPages";
+            ValidateRecordsNumber(RecordsNumber);
+            var url = $"api/categories/totalPages?recordsnumber={RecordsNumber}";
             if (!string.IsNullOrEmpty(Filter))
             {
-                url += $"?filter={Filter}";
+                url += $"&filter={Filter}";
             }
 
             var responseHttp = await Repository.GetAsync<int>(url);

@@ -1,4 +1,6 @@
-﻿using CurrieTechnologies.Razor.SweetAlert2;
+﻿using Blazored.Modal;
+using Blazored.Modal.Services;
+using CurrieTechnologies.Razor.SweetAlert2;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using Orders.Frontend.Repositories;
@@ -27,6 +29,7 @@ namespace Orders.Frontend.Pages.Countries
         [Inject] private NavigationManager NavigationManager { get; set; } = null!;
         //Paramtro Id para editar un pais
         [EditorRequired, Parameter] public int Id { get; set; }
+        [CascadingParameter] BlazoredModalInstance BlazoredModal { get; set; } = default!;
 
         //Metodo que me va a cargar el id del pais
         protected async override Task OnParametersSetAsync()
@@ -65,7 +68,8 @@ namespace Orders.Frontend.Pages.Countries
                 await SweetAlertService.FireAsync("Error", mensajeError, SweetAlertIcon.Error);
                 return;
             }
-            //Creamos un Return para salir
+
+            await BlazoredModal.CloseAsync(ModalResult.Ok());
             Return();
 
             //Creamos el Toast para mostrar la alerta del registro con exito

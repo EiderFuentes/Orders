@@ -4,7 +4,7 @@
     <div class="card-header">
         <span>
             <i class="bi bi-globe-americas"></i> Países
-            <a class="btn btn-sm btn-primary float-end" href="/countries/create"><i class="bi bi-plus-square"></i> Adicionar País</a>
+            <a class="btn btn-sm btn-primary float-end" @onclick=@(() => ShowModalAsync())><i class="bi bi-plus-square"></i> Adicionar País</a>
         </span>
     </div>
     <div class="card-body">
@@ -34,7 +34,7 @@
                                 <td><a href="/countries/details/@country.Id"> @country.Name</a></td>
                                 <td>@country.StatesNumber</td>
                                 <td>
-                                    <a href="/countries/edit/@country.Id" class="btn btn-warning btn-sm"><i class="bi bi-pencil-fill" /> Editar</a>
+                                    <a @onclick=@(() => ShowModalAsync(country.Id, true)) class="btn btn-warning btn-sm"><i class="bi bi-pencil-fill" /> Editar</a>
                                     <button class="btn btn-danger btn-sm" @onclick=@(() => DeleteAsync(country))><i class="bi bi-trash-fill" /> Borrar</button>
 
                                 </td>

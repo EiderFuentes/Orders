@@ -1,4 +1,6 @@
-﻿using CurrieTechnologies.Razor.SweetAlert2;
+﻿using Blazored.Modal;
+using Blazored.Modal.Services;
+using CurrieTechnologies.Razor.SweetAlert2;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using Orders.Frontend.Pages.Countries;
@@ -26,6 +28,7 @@ namespace Orders.Frontend.Pages.Categories
         [Inject] private SweetAlertService SweetAlertService { get; set; } = null!;
         // Inyectamos el NavigationManager para direccionar
         [Inject] private NavigationManager NavigationManager { get; set; } = null!;
+        [CascadingParameter] BlazoredModalInstance BlazoredModal { get; set; } = default!;
         //Paramtro Id para editar un pais
         [EditorRequired, Parameter] public int Id { get; set; }
 
@@ -66,7 +69,8 @@ namespace Orders.Frontend.Pages.Categories
                 await SweetAlertService.FireAsync("Error", mensajeError, SweetAlertIcon.Error);
                 return;
             }
-            //Creamos un Return para salir
+
+            await BlazoredModal.CloseAsync(ModalResult.Ok());
             Return();
 
             //Creamos el Toast para mostrar la alerta del registro con exito

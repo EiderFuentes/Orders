@@ -1,6 +1,9 @@
-﻿using CurrieTechnologies.Razor.SweetAlert2;
+﻿using Blazored.Modal;
+using Blazored.Modal.Services;
+using CurrieTechnologies.Razor.SweetAlert2;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
+using Orders.Frontend.Pages.Categories;
 using Orders.Frontend.Repositories;
 using Orders.Shared.Entities;
 using System.Net;
@@ -24,6 +27,7 @@ namespace Orders.Frontend.Pages.Countries
         [Parameter, SupplyParameterFromQuery] public string Page { get; set; } = string.Empty;
         [Parameter, SupplyParameterFromQuery] public string Filter { get; set; } = string.Empty;
         [Parameter, SupplyParameterFromQuery] public int RecordsNumber { get; set; } = 10;
+        [CascadingParameter] IModalService Modal { get; set; } = default!;
 
         //Hacemos el llamado del reposity de country
         public List<Country>? Countries { get; set; }
@@ -33,6 +37,25 @@ namespace Orders.Frontend.Pages.Countries
         {
             //Creamos este nuevo metodo 
             await LoadAsync();
+        }
+        private async Task ShowModalAsync(int id = 0, bool isEdit = false)
+        {
+            IModalReference modalReference;
+
+            if (isEdit)
+            {
+                modalReference = Modal.Show<CountryEdit>(string.Empty, new ModalParameters().Add("Id", id));
+            }
+            else
+            {
+                modalReference = Modal.Show<CountryCreate>();
+            }
+
+            var result = await modalReference.Result;
+            if (result.Confirmed)
+            {
+                await LoadAsync();
+            }
         }
 
         private async Task SelectedRecordsNumberAsync(int recordsnumber)

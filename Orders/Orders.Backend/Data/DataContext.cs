@@ -16,6 +16,10 @@ namespace Orders.Backend.Data
         public DbSet<Country> Countries { get; set; }
         public DbSet<State> States { get; set; }
         public DbSet<City> Cities { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<ProductCategory> ProductCategories { get; set; }
+        public DbSet<ProductImage> ProductImages { get; set; }
+
 
         //Para hacer cambios a la base de datos
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -24,6 +28,7 @@ namespace Orders.Backend.Data
             //Crear Indices en la base de datos unico
             modelBuilder.Entity<Category>().HasIndex(x => x.Name).IsUnique();
             modelBuilder.Entity<Country>().HasIndex(x => x.Name).IsUnique();
+            modelBuilder.Entity<Product>().HasIndex(x => x.Name).IsUnique();
             modelBuilder.Entity<State>().HasIndex(s => new { s.CountryId, s.Name }).IsUnique();//Indice compuesto
             modelBuilder.Entity<City>().HasIndex(c => new { c.StateId, c.Name }).IsUnique();//Indice compuesto
             DisableCascadingDelete(modelBuilder);//Deshabilita el borrado en cascada

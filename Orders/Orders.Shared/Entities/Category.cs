@@ -15,5 +15,11 @@ namespace Orders.Shared.Entities
         //DataAnnotations para validar que el campo ingrese vacio a la base de dato
         [Required(ErrorMessage = "El campo {0} es requerido.")]
         public string Name { get; set; } = null!;
+
+        public ICollection<ProductCategory>? ProductCategories { get; set; }
+
+        [Display(Name = "Productos")]
+        public int ProductCategoriesNumber => ProductCategories == null || ProductCategories.Count == 0 ? 0 : ProductCategories.Count;
+
     }
 }

@@ -51,6 +51,15 @@ namespace Orders.Frontend.Pages.Products
             }
 
             Return();
+            var toast = SweetAlertService.Mixin(new SweetAlertOptions
+            {
+                Toast = true,
+                Position = SweetAlertPosition.BottomEnd,
+                ShowConfirmButton = true,
+                Timer = 3000
+            });
+
+            await toast.FireAsync(icon: SweetAlertIcon.Success, message: "Registro guardados con éxito.");
         }
 
         private void Return()

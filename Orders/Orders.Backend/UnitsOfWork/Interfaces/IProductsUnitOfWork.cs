@@ -20,6 +20,8 @@ namespace Orders.Backend.UnitsOfWork.Interfaces
 
         Task<ActionResponse<ImageDTO>> RemoveLastImageAsync(ImageDTO imageDTO);
 
+        Task<ActionResponse<Product>> DeleteAsync(int id);
+
     }
 }
 

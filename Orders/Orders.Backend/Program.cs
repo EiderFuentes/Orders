@@ -72,6 +72,7 @@ builder.Services.AddScoped<ICountriesRepository, CountriesRepository>();//Inyect
 builder.Services.AddScoped<IStatesRepository, StatesRepository>();//Inyectamos el repositorio de estados
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();//Inyectamos el repositorio de Usuarios
 builder.Services.AddScoped<IProductsRepository, ProductsRepository>();
+builder.Services.AddScoped<ITemporalOrdersRepository, TemporalOrdersRepository>();
 
 builder.Services.AddScoped<ICategoriesUnitOfWork, CategoriesUnitOfWork>();
 builder.Services.AddScoped<ICitiesUnitOfWork, CitiesUnitOfWork>();//Inyectamos la unidad de trabajo de cuidades
@@ -79,6 +80,7 @@ builder.Services.AddScoped<ICountriesUnitOfWork, CountriesUnitOfWork>();//Inyect
 builder.Services.AddScoped<IStatesUnitOfWork, StatesUnitOfWork>();//Inyectamos la unidad de trabajo de estados
 builder.Services.AddScoped<IUsersUnitOfWork, UsersUnitOfWork>();//Inyectamos la unidad de trabajo de usuarios
 builder.Services.AddScoped<IProductsUnitOfWork, ProductsUnitOfWork>();
+builder.Services.AddScoped<ITemporalOrdersUnitOfWork, TemporalOrdersUnitOfWork>();
 
 //Validaciones del usuarios
 builder.Services.AddIdentity<User, IdentityRole>(x =>

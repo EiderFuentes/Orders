@@ -13,12 +13,12 @@ namespace Orders.Frontend.Shared
         [Parameter] public int Radio { get; set; } = 10;
         [Parameter] public EventCallback<int> SelectedPage { get; set; }
         [Parameter] public EventCallback<int> RecordsNumber { get; set; }
-
+        [Parameter] public bool IsHome { get; set; } = false;
 
         protected override void OnParametersSet()
         {
             BuildPages();
-            BuildOptions();   
+            BuildOptions();
         }
 
         private void BuildPages()
@@ -79,34 +79,47 @@ namespace Orders.Frontend.Shared
 
         private void BuildOptions()
         {
-            options =
-            [
+            if (IsHome)
+            {
+                options =
+                [
+                    new OptionModel { Value = 8, Name = "8" },
+                    new OptionModel { Value = 16, Name = "16" },
+                    new OptionModel { Value = 32, Name = "32" },
+                    new OptionModel { Value = int.MaxValue, Name = "Todos" },
+                ];
+            }
+            else
+            {
+
+                options =
+               [
                 new OptionModel { Value = 10, Name = "10" },
                 new OptionModel { Value = 25, Name = "25" },
                 new OptionModel { Value = 50, Name = "50" },
                 new OptionModel { Value = int.MaxValue, Name = "Todos" },
-            ];
-        }
-
-        private async Task InternalRecordsNumberSelected(ChangeEventArgs e)
-        {
-            if (e.Value != null)
-            {
-                selectedOptionValue = Convert.ToInt32(e.Value.ToString());
+               ];
             }
-            await RecordsNumber.InvokeAsync(selectedOptionValue);
         }
-
-        //Metodo cuando hagan clic en una pagina
-        private async Task InternalSelectedPage(PageModel pageModel)
-        {
-            if (pageModel.Page == CurrentPage || pageModel.Page == 0)
+            private async Task InternalRecordsNumberSelected(ChangeEventArgs e)
             {
-                return;
+                if (e.Value != null)
+                {
+                    selectedOptionValue = Convert.ToInt32(e.Value.ToString());
+                }
+                await RecordsNumber.InvokeAsync(selectedOptionValue);
             }
-            //Refresca la interfac y digale al elemento que lo llamo
-            await SelectedPage.InvokeAsync(pageModel.Page);
-        }
+
+            //Metodo cuando hagan clic en una pagina
+            private async Task InternalSelectedPage(PageModel pageModel)
+            {
+                if (pageModel.Page == CurrentPage || pageModel.Page == 0)
+                {
+                    return;
+                }
+                //Refresca la interfac y digale al elemento que lo llamo
+                await SelectedPage.InvokeAsync(pageModel.Page);
+            }
 
         private class OptionModel
         {

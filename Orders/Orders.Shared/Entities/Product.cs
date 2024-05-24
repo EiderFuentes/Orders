@@ -41,5 +41,8 @@ namespace Orders.Shared.Entities
         public string MainImage => ProductImages == null || ProductImages.Count == 0 ? string.Empty : ProductImages.FirstOrDefault()!.Image;
 
         public ICollection<TemporalOrder>? TemporalOrders { get; set; }
+
+        //Reportes
+        public ICollection<OrderDetail>? OrderDetails { get; set; }
     }
 }

@@ -22,6 +22,8 @@ namespace Orders.Backend.UnitsOfWork.Interfaces
 
         Task<ActionResponse<Product>> DeleteAsync(int id);
 
+        Task<ActionResponse<Product>> UpdateAsync(Product product);
+
     }
 }
 

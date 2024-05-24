@@ -60,6 +60,7 @@ builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer("name=LocalConnec
 builder.Services.AddTransient<SeedDb>();//Inyectamos nuestro alimentador
 builder.Services.AddScoped<IFileStorage, FileStorage>(); // Inyectamos nuestro blob stora
 builder.Services.AddScoped<IMailHelper, MailHelper>();
+builder.Services.AddScoped<IOrdersHelper, OrdersHelper>();
 
 //Inyectamos la unidad de trabajo generico
 builder.Services.AddScoped(typeof(IGenericUnitOfWork<>), typeof(GenericUnitOfWork<>));
@@ -73,6 +74,8 @@ builder.Services.AddScoped<IStatesRepository, StatesRepository>();//Inyectamos e
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();//Inyectamos el repositorio de Usuarios
 builder.Services.AddScoped<IProductsRepository, ProductsRepository>();
 builder.Services.AddScoped<ITemporalOrdersRepository, TemporalOrdersRepository>();
+builder.Services.AddScoped<IOrdersRepository, OrdersRepository>();
+
 
 builder.Services.AddScoped<ICategoriesUnitOfWork, CategoriesUnitOfWork>();
 builder.Services.AddScoped<ICitiesUnitOfWork, CitiesUnitOfWork>();//Inyectamos la unidad de trabajo de cuidades
@@ -81,6 +84,7 @@ builder.Services.AddScoped<IStatesUnitOfWork, StatesUnitOfWork>();//Inyectamos l
 builder.Services.AddScoped<IUsersUnitOfWork, UsersUnitOfWork>();//Inyectamos la unidad de trabajo de usuarios
 builder.Services.AddScoped<IProductsUnitOfWork, ProductsUnitOfWork>();
 builder.Services.AddScoped<ITemporalOrdersUnitOfWork, TemporalOrdersUnitOfWork>();
+builder.Services.AddScoped<IOrdersUnitOfWork, OrdersUnitOfWork>();
 
 //Validaciones del usuarios
 builder.Services.AddIdentity<User, IdentityRole>(x =>
